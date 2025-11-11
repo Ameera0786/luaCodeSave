@@ -4,6 +4,7 @@ local font = Enum.Font.Creepster
 
 -- Create a container for the rewards
 local function createContainer()
+	-- Reward container
 	local container = Instance.new("Frame")
 	container.AnchorPoint = Vector2.new(0.5, 0.5)
 	container.BackgroundColor3 = Color3.fromRGB(58, 58, 58)
@@ -13,6 +14,7 @@ local function createContainer()
 	container.Visible = false
 	container.Parent = GUI
 
+	-- UI Corner and Scale and Stroke
 	local corner = Instance.new("UICorner")
 	local scale = Instance.new("UIScale")
 	scale.Scale = 0.6
@@ -20,6 +22,7 @@ local function createContainer()
 	stroke.Color = Color3.fromRGB(170, 0, 0)
 	stroke.Thickness = 10
 	
+	-- Container label
 	local label = Instance.new("TextLabel")
 	label.AnchorPoint = Vector2.new(0.5, 0.5)
 	label.BackgroundTransparency = 1
@@ -36,6 +39,7 @@ local function createContainer()
 	local labelStroke = Instance.new("UIStroke")
 	labelStroke.Thickness = 15
 	
+	-- Set parents
 	corner.Parent = container
 	scale.Parent = container
 	stroke.Parent = container
@@ -48,31 +52,36 @@ end
 
 -- Create vertical and horizontal lines
 local function createLineUI(container)
+	-- Vertical
 	local vertLine = Instance.new("Frame")
 	vertLine.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
 	vertLine.Position = UDim2.new(0.75, 0, 0, 0)
 	vertLine.Size = UDim2.new(0.025, 0, 1, 0)
 	vertLine.BorderColor3 = Color3.fromRGB(170, 0, 0)
 	
+	-- Horizontal
 	local horLine = Instance.new("Frame")
 	horLine.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
 	horLine.Position = UDim2.new(0, 0, 0.5, 0)
 	horLine.Size = UDim2.new(0.76, 0, 0.05, 0)
 	horLine.BorderColor3 = Color3.fromRGB(170, 0, 0)
 	
+	-- Set parents
 	vertLine.Parent = container
 	horLine.Parent = container
 end
 
 -- Left Grid (for Days 1–6)
 local function createLeftGrid(container)
+	-- Create grid frame
 	local grid = Instance.new("Frame")
 	grid.Name = "LeftGrid"
-	grid.Size = UDim2.new(0.678, 0, 0.911, 0) -- left 80% of container
+	grid.Size = UDim2.new(0.678, 0, 0.911, 0)
 	grid.Position = UDim2.new(0, 0, 0, 0)
 	grid.BackgroundTransparency = 1
 	grid.Parent = container
 
+	-- UICorner and scale
 	local corner = Instance.new("UICorner")
 	corner.CornerRadius = UDim.new(0, 9)
 	corner.Parent = grid
@@ -94,15 +103,17 @@ end
 
 -- Right Grid (for Day 7)
 local function createRightGrid(container)
+	-- Create grid frame
 	local grid = Instance.new("Frame")
 	grid.Name = "RightGrid"
-	grid.Size = UDim2.new(0.25, 0, 1, 0) -- right 20% of container
+	grid.Size = UDim2.new(0.25, 0, 1, 0)
 	grid.Position = UDim2.new(0.762, 0, 0, 0)
 	grid.BackgroundTransparency = 1
-	grid.Parent = container
 
+	-- UICorner and set parents
 	local corner = Instance.new("UICorner")
 	corner.Parent = grid
+	grid.Parent = container
 
 	return grid
 end
