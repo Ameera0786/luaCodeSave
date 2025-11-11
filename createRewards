@@ -1,10 +1,18 @@
 local player = game.Players.LocalPlayer
 local GUI = player:WaitForChild("PlayerGui"):WaitForChild("GUI") -- make sure the ScreenGui is named "GUI"
-local rewardContainer = GUI:WaitForChild("RewardContainer")
 local font = Enum.Font.Creepster
 
 -- Create a container for the rewards
-local function createContainer(container)
+local function createContainer()
+	local container = Instance.new("Frame")
+	container.AnchorPoint = Vector2.new(0.5, 0.5)
+	container.BackgroundColor3 = Color3.fromRGB(58, 58, 58)
+	container.Position = UDim2.new(0.5, 0, 0.5, 0)
+	container.Size = UDim2.new(1, 0, 0.6, 0)
+	container.Name = "RewardContainer"
+	container.Visible = false
+	container.Parent = GUI
+
 	local corner = Instance.new("UICorner")
 	local scale = Instance.new("UIScale")
 	scale.Scale = 0.6
@@ -34,10 +42,12 @@ local function createContainer(container)
 	label.Parent = container
 	labelScale.Parent = label
 	labelStroke.Parent = label
+	
+	return container
 end
 
 -- Create vertical and horizontal lines
-local function createLineUI()
+local function createLineUI(container)
 	local vertLine = Instance.new("Frame")
 	vertLine.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
 	vertLine.Position = UDim2.new(0.75, 0, 0, 0)
@@ -50,18 +60,18 @@ local function createLineUI()
 	horLine.Size = UDim2.new(0.76, 0, 0.05, 0)
 	horLine.BorderColor3 = Color3.fromRGB(170, 0, 0)
 	
-	vertLine.Parent = rewardContainer
-	horLine.Parent = rewardContainer
+	vertLine.Parent = container
+	horLine.Parent = container
 end
 
 -- Left Grid (for Days 1–6)
-local function createLeftGrid()
+local function createLeftGrid(container)
 	local grid = Instance.new("Frame")
 	grid.Name = "LeftGrid"
 	grid.Size = UDim2.new(0.678, 0, 0.911, 0) -- left 80% of container
 	grid.Position = UDim2.new(0, 0, 0, 0)
 	grid.BackgroundTransparency = 1
-	grid.Parent = rewardContainer
+	grid.Parent = container
 
 	local corner = Instance.new("UICorner")
 	corner.CornerRadius = UDim.new(0, 9)
@@ -83,13 +93,13 @@ local function createLeftGrid()
 end
 
 -- Right Grid (for Day 7)
-local function createRightGrid()
+local function createRightGrid(container)
 	local grid = Instance.new("Frame")
 	grid.Name = "RightGrid"
 	grid.Size = UDim2.new(0.25, 0, 1, 0) -- right 20% of container
 	grid.Position = UDim2.new(0.762, 0, 0, 0)
 	grid.BackgroundTransparency = 1
-	grid.Parent = rewardContainer
+	grid.Parent = container
 
 	local corner = Instance.new("UICorner")
 	corner.Parent = grid
@@ -144,170 +154,11 @@ local function createButton(dayNumber, parent)
 end
 
 -- Create the reward container
-createContainer(rewardContainer)
-createLineUI()
+local rewardContainer = createContainer()
+createLineUI(rewardContainer)
 
-local leftGrid = createLeftGrid()
-local rightGrid = createRightGrid()
-
--- Create Days 1–6
-for i = 1, 6 do
-	createButton(i, leftGrid)
-
-end
-
--- Day 7 on the right
-createButton(7, rightGrid)local player = game.Players.LocalPlayer
-local GUI = player:WaitForChild("PlayerGui"):WaitForChild("GUI") -- make sure the ScreenGui is named "GUI"
-local rewardContainer = GUI:WaitForChild("RewardContainer")
-local font = Enum.Font.Creepster
-
--- Create a container for the rewards
-local function createContainer(container)
-	local corner = Instance.new("UICorner")
-	local scale = Instance.new("UIScale")
-	scale.Scale = 0.6
-	local stroke = Instance.new("UIStroke")
-	stroke.Color = Color3.fromRGB(170, 0, 0)
-	stroke.Thickness = 10
-	
-	local label = Instance.new("TextLabel")
-	label.AnchorPoint = Vector2.new(0.5, 0.5)
-	label.BackgroundTransparency = 1
-	label.Position = UDim2.new(0.5, 0, 0, 0)
-	label.Size = UDim2.new(1, 0, 1, 0)
-	label.Font = font
-	label.Text = "Rewards"
-	label.TextColor3 = Color3.fromRGB(170, 0, 0)
-	label.TextSize = 40
-	label.TextScaled = true
-	
-	local labelScale = Instance.new("UIScale")
-	labelScale.Scale = 0.3
-	local labelStroke = Instance.new("UIStroke")
-	labelStroke.Thickness = 15
-	
-	corner.Parent = container
-	scale.Parent = container
-	stroke.Parent = container
-	label.Parent = container
-	labelScale.Parent = label
-	labelStroke.Parent = label
-end
-
--- Create vertical and horizontal lines
-local function createLineUI()
-	local vertLine = Instance.new("Frame")
-	vertLine.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
-	vertLine.Position = UDim2.new(0.75, 0, 0, 0)
-	vertLine.Size = UDim2.new(0.025, 0, 1, 0)
-	vertLine.BorderColor3 = Color3.fromRGB(170, 0, 0)
-	
-	local horLine = Instance.new("Frame")
-	horLine.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
-	horLine.Position = UDim2.new(0, 0, 0.5, 0)
-	horLine.Size = UDim2.new(0.76, 0, 0.05, 0)
-	horLine.BorderColor3 = Color3.fromRGB(170, 0, 0)
-	
-	vertLine.Parent = rewardContainer
-	horLine.Parent = rewardContainer
-end
-
--- Left Grid (for Days 1–6)
-local function createLeftGrid()
-	local grid = Instance.new("Frame")
-	grid.Name = "LeftGrid"
-	grid.Size = UDim2.new(0.678, 0, 0.911, 0) -- left 80% of container
-	grid.Position = UDim2.new(0, 0, 0, 0)
-	grid.BackgroundTransparency = 1
-	grid.Parent = rewardContainer
-
-	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 9)
-	corner.Parent = grid
-
-	local scale = Instance.new("UIScale")
-	scale.Scale = 1.12
-	scale.Parent = grid
-
-	-- UIGridLayout that scales cells automatically
-	local gridLayout = Instance.new("UIGridLayout")
-	gridLayout.CellSize = UDim2.new(0.3, 0, 0.45, 0)  -- scale relative to parent
-	gridLayout.CellPadding = UDim2.new(0, 0.02, 0, 0.02)  -- 2% spacing
-	gridLayout.FillDirection = Enum.FillDirection.Horizontal
-	gridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	gridLayout.Parent = grid
-	
-	return grid
-end
-
--- Right Grid (for Day 7)
-local function createRightGrid()
-	local grid = Instance.new("Frame")
-	grid.Name = "RightGrid"
-	grid.Size = UDim2.new(0.25, 0, 1, 0) -- right 20% of container
-	grid.Position = UDim2.new(0.762, 0, 0, 0)
-	grid.BackgroundTransparency = 1
-	grid.Parent = rewardContainer
-
-	local corner = Instance.new("UICorner")
-	corner.Parent = grid
-
-	return grid
-end
-
--- Create a button for each day
-local function createButton(dayNumber, parent) 
-	-- Create a button
-	local btn = Instance.new("ImageButton")
-	btn.Name = "Day"..dayNumber
-	btn.ScaleType = "Fit"
-	btn.Size = UDim2.new(0.5, 0, 1, 0)
-	if dayNumber == 7 then
-		btn.Position = UDim2.new(0.5, 0, 0.5, 0)
-		btn.AnchorPoint = Vector2.new(0.5, 0.5)
-		btn.Size = UDim2.new(1, 0, 1, 0)
-	end
-	local ratio = Instance.new("UIAspectRatioConstraint")
-	local scale = Instance.new("UIScale")
-	scale.Scale = 0.7
-	ratio.Parent = btn
-	scale.Parent = btn
-	btn.Image = "rbxassetid://115833603962127"
-	btn.BackgroundTransparency = 1
-	btn.Parent = parent
-
-	-- Add reward text labels
-	local rewardsLabel = Instance.new("TextLabel")
-	rewardsLabel.Text = "Rewards"
-	rewardsLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	rewardsLabel.Size = UDim2.new(0.8, 0, 0.8, 0)
-	rewardsLabel.Position = UDim2.new(0.5, 0, 0.75, 0)
-	rewardsLabel.BackgroundTransparency = 1
-	rewardsLabel.TextScaled = true
-	rewardsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	rewardsLabel.Font = font
-	rewardsLabel.Parent = btn
-
-	-- Add day text label
-	local dayLabel = Instance.new("TextLabel")
-	dayLabel.Text = "Day"..dayNumber
-	dayLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	dayLabel.Size = UDim2.new(0.4, 0, 0.4, 0)
-	dayLabel.Position = UDim2.new(0.5, 0, 1.15, 0)
-	dayLabel.BackgroundTransparency = 1
-	dayLabel.TextScaled = true
-	dayLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	dayLabel.Font = font
-	dayLabel.Parent = btn
-end
-
--- Create the reward container
-createContainer(rewardContainer)
-createLineUI()
-
-local leftGrid = createLeftGrid()
-local rightGrid = createRightGrid()
+local leftGrid = createLeftGrid(rewardContainer)
+local rightGrid = createRightGrid(rewardContainer)
 
 -- Create Days 1–6
 for i = 1, 6 do
