@@ -13,8 +13,8 @@ local function createContainer()
 	
 	-- UIGridLayout and scale
 	local gridLayout = Instance.new("UIGridLayout")
-	gridLayout.CellSize = UDim2.new(0.45, 0, 0.45, 0)
-	gridLayout.CellPadding = UDim2.new(0.1, 0, 0.1, 0)
+	gridLayout.CellSize = UDim2.new(0.25, 0, 0.45, 0)
+	gridLayout.CellPadding = UDim2.new(0.02, 0, 0.1, 0)
 	gridLayout.FillDirection = Enum.FillDirection.Horizontal
 	gridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	
