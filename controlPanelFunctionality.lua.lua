@@ -1,4 +1,5 @@
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 local playerGui = LocalPlayer.PlayerGui
 local GUI = playerGui:WaitForChild("GUI")
@@ -26,15 +27,14 @@ local defaultWalkSpeed = humanoid.WalkSpeed
 local speedMultiplier = 2
 local sprinting = false
 
--- Update walk speed
-sprintButton.MouseButton1Click:Connect(function()
+local function updateWalkSpeed()
 	sprinting = not sprinting
 	if sprinting then 
 		humanoid.WalkSpeed = defaultWalkSpeed * speedMultiplier
 	else
 		humanoid.WalkSpeed = defaultWalkSpeed
 	end
-end)
+end
 
 -- Close all panels
 local function closeAllPanels()
@@ -53,6 +53,30 @@ local function updateVisibility(panel)
 		panel.Visible = true
 	end
 end
+
+-- Update buttons on key press
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if (not gameProcessed) then
+		-- Check for sprint key (LeftShift)
+		if (input.KeyCode == Enum.KeyCode.LeftShift) then
+			updateWalkSpeed()
+		-- Check for teleport key (T)
+		elseif input.KeyCode == Enum.KeyCode.T then
+			updateVisibility(teleportContainer)
+		-- Check for rewards key (R)
+		elseif input.KeyCode == Enum.KeyCode.R then
+			updateVisibility(rewardContainer)
+		-- Check for inventory key (U)
+		elseif input.KeyCode == Enum.KeyCode.U then
+			updateVisibility(inventoryContainer)
+		end
+	end
+end)
+
+-- Update walk speed based on mouse click
+sprintButton.MouseButton1Click:Connect(function()
+	updateWalkSpeed()
+end)
 
 -- Connect buttons to toggle panels
 for i = 1, #buttons do
